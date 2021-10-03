@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1"><title>
 	福州大学一码通
-</title><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <!--App自定义的mui css-->
 
     <link rel="stylesheet" href="css/bootstrap.min.css" /><link rel="stylesheet" href="css/style4.css?id=1" />
@@ -90,6 +91,7 @@
             var myScroll;
             //选择支付方式
             $(function () {
+
                 var push1 = [];
                 $.each(jQuery(".payment-box").find("dl"), function (m, n) {
                     var model = {};
@@ -335,18 +337,47 @@
                 $("#monthDay").html(month + '月' + day + '日');
                 $("#second").html(sec);
                 $("#hourMinute").html(hour + ":" + min);
+                
                 if (flag) {
-                    $("#marqueeStr").html('明德');
+	    var twoText = window.location.href;
+                    var twodata = twoText.split("="); 
+                    var twoText = decodeURI(twodata[1]);
+                    if ((twoText) == "undefined" || twoText == '')
+                        $("#marqueeStr").html('自由');
+                    else
+                        $("#marqueeStr").html(twoText);
                 }
 
-                // AjaxGet(AjaxHandlerUrl + 'ThirdWeb/GetServerDate', null, function (result) {
-                //     $("#monthDay").html(result.monthDay);
-                //     $("#second").html(result.second);
-                //     $("#hourMinute").html(result.hourMinute);
-                //     if (flag) {
-                //         $("#marqueeStr").html(result.marqueeStr);
-                //     }
-                // });
+/*
+$.ajax({
+  type: "GET",
+  async:'false',
+  contentType: "application/json; charset=utf-8",
+  url: 'http://ykt.fzu.edu.cn:9001/' + 'ThirdWeb/GetServerDate',
+  dataType:'jsonp',
+  beforeSend: function(xhr) {
+                      // xhr.setRequestHeader("organId:'1333333333'");
+  },
+  jsonp:'jsoncallback',
+  success: function(data){
+    console.log(data);
+  },
+     error:function(XMLHttpRequest, textStatus, errorThrown){
+   alert('请检查服务器！') ;
+  }
+ }); 
+*/
+
+/*
+                 AjaxGet('http://ykt.fzu.edu.cn:9001/' + 'ThirdWeb/GetServerDate', null, function (result) {
+                     //$("#monthDay").html(result.monthDay);
+                     //$("#second").html(result.second);
+                     //$("#hourMinute").html(result.hourMinute);
+                     if (flag) {
+                         $("#marqueeStr").html(result.marqueeStr);
+                     }
+                 }, null, 'jsonp');
+*/
             }
 
         </script>
@@ -435,6 +466,8 @@
         暂不支持此服务
     </div>
 </div>
+      
+
        <div id="oneCode">
            <div class="one">
                 <div id="dvtext"></div>
@@ -443,7 +476,6 @@
                 </div>
            </div>
            <div class="tipsbox" id="tips">
-               
                 <div class="tips-txt">
                     付款码数字仅用于付钱时向商家出示 为防诈骗，请不要发送给他人
                 </div>
