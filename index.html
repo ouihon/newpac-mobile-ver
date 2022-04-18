@@ -176,8 +176,8 @@
             });
 
             $(function () {
-                var namelist = ['郑子涵', '郑雨婷', '陈琪', '张思妍', '张晨', '陈亮'];
-                $('#mingzi').text(namelist[Math.floor(Math.random() * namelist.length)]);
+                //var namelist = ['郑子涵', '郑雨婷', '陈琪', '张思妍', '张晨', '陈亮'];
+                //$('#mingzi').text(namelist[Math.floor(Math.random() * namelist.length)]);
 
                 getreqestbarcode();
                 // createqrcode();
@@ -339,13 +339,24 @@
                 $("#hourMinute").html(hour + ":" + min);
                 
                 if (flag) {
-	    var twoText = window.location.href;
-                    var twodata = twoText.split("="); 
-                    var twoText = decodeURI(twodata[1]);
-                    if ((twoText) == "undefined" || twoText == '')
-                        $("#marqueeStr").html('自由');
-                    else
-                        $("#marqueeStr").html(twoText);
+	                var infoStr = window.location.href;
+                    var infoData = infoStr.split("=");
+					var twoText = decodeURI(infoData[1]);
+					if ((twoText) == "undefined" || twoText == ''){
+					    $('#myname').text("郑子涵");
+						$('#mydepart').text("计算机与大数据学院");
+					    $("#marqueeStr").html('自由');
+					}
+					else{
+					    var info = infoData[1].split("-");					
+					    var myname = decodeURI(info[0]);
+					    var mydepart = decodeURI(info[1]);
+                        var myword = decodeURI(info[2]);
+						
+						$('#myname').text(myname);
+						$('#mydepart').text(mydepart);
+					    $("#marqueeStr").html(myword);
+                    }
                 }
 
 /*
@@ -388,8 +399,8 @@ $.ajax({
 </header>
     <div style="font-size: 20px;color: white;position: relative;width: 86%;margin: 20px auto 0 auto;" >
         <image src="img/FZU.png" style="width: 99px; float: right; position: absolute;  right: 0px; top: -17px;"></image>
-        <span style="display: block;padding-bottom: 20px;">姓名：<span id="mingzi"></span></span>
-        <span style="display: block;">部门：数学与计算机科学学院</span>
+        <span style="display: block;padding-bottom: 20px;">姓名：<span id="myname"></span></span>
+        <span style="display: block;">部门：<span id="mydepart"></span></span>
     </div>
         <div class="pay-container">
 
